@@ -20,9 +20,11 @@ namespace VFSUnitTest
             var nodeTwo = new NodeTree();
             var nodeThree = new ZipNodeTree();
 
-            Assert.IsTrue(nodeOne.Build(@"E:\dev\csharp\vfs\VirtualFileSystem\VFSUnitTest\testdata\Data\"));
-            Assert.IsTrue(nodeTwo.Build(@"E:\dev\csharp\vfs\VirtualFileSystem\VFSUnitTest\testdata\Data2\"));
-            Assert.IsTrue(nodeThree.Build(@"E:\dev\csharp\vfs\VirtualFileSystem\VFSUnitTest\testdata\Data.zip"));
+            string appPath = Path.Combine(TestingUtils.GetTestingBaseFolder(), "testdata");
+
+            Assert.IsTrue(nodeOne.Build(Path.Combine(appPath, @"Data\")));
+            Assert.IsTrue(nodeTwo.Build(Path.Combine(appPath, @"Data2\")));
+            Assert.IsTrue(nodeThree.Build(Path.Combine(appPath, @"Data.zip")));
 
             fileSystem.AddSystem("First", nodeOne);
             fileSystem.AddSystem("Second", nodeTwo);

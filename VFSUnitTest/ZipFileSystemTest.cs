@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Text;
 using VFS.BundleSystem;
+using VFS.Core;
 
 namespace VFSUnitTest
 {
@@ -14,7 +15,9 @@ namespace VFSUnitTest
         {
             ZipNodeTree tree = new ZipNodeTree();
 
-            Assert.IsTrue(tree.Build(@"E:\dev\csharp\vfs\VirtualFileSystem\VFSUnitTest\testdata\Data.zip"));
+            string appPath = Path.Combine(TestingUtils.GetTestingBaseFolder(), "testdata");
+
+            Assert.IsTrue(tree.Build(Path.Combine(appPath, @"Data.zip")));
 
             foreach (var item in tree.FlatTree)
             {
