@@ -68,16 +68,14 @@ namespace VFS.BundleSystem
 
         public bool DirExists(string path)
         {
-            INode node;
-            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out node);
+            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out INode node);
 
             return result && node.NodeType == INode.Type.Directory;
         }
 
         public bool FileExists(string path)
         {
-            INode node;
-            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out node);
+            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out INode node);
 
             return result && node.NodeType == INode.Type.File;
         }
@@ -85,8 +83,7 @@ namespace VFS.BundleSystem
         public Stream Open(string path)
         {
             Stream result = null;
-            INode node;
-            if (mNodeTree.TryGetValue(path.GetHashCode(), out node))
+            if (mNodeTree.TryGetValue(path.GetHashCode(), out INode node))
             {
                 ZipNode zipNode = node as ZipNode;
                 result = zipNode.mArchiveEntry.OpenEntryStream();

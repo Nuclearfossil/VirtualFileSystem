@@ -38,16 +38,14 @@ namespace VFS.FileSystem
 
         public bool DirExists(string path)
         {
-            INode node;
-            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out node);
+            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out INode node);
 
             return result && (node.NodeType == INode.Type.Directory);
         }
 
         public bool FileExists(string path)
         {
-            INode node;
-            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out node);
+            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out INode node);
 
             return result && (node.NodeType == INode.Type.File);
         }

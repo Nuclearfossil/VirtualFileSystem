@@ -5,6 +5,9 @@ namespace VFS.Core
 {
     public class FileSystem
     {
+        private Stack<INodeTree> mFileSystems;
+        private const int kInitialSystemSize = 5;
+
         public FileSystem()
         {
             mFileSystems = new Stack<INodeTree>(kInitialSystemSize);
@@ -80,8 +83,5 @@ namespace VFS.Core
 
             return output;
         }
-
-        private Stack<INodeTree> mFileSystems;
-        private const int kInitialSystemSize = 5;
     }
 }

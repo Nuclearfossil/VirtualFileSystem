@@ -13,12 +13,14 @@ namespace VFSUnitTest
         public void TestFileSystem()
         {
             var rootPath = @"E:\dev\csharp\vfs\VirtualFileSystem\VFSUnitTest\testdata\Data\";
+
             // Cleanup from old run (just in case - we want a clean run)
             var tempDir = Path.Combine(rootPath, "temp");
             if (Directory.Exists(tempDir))
             {
                 Directory.Delete(tempDir, true);
             }
+
             NodeTree tree = new NodeTree();
             Assert.IsTrue(tree.Build(rootPath));
 
