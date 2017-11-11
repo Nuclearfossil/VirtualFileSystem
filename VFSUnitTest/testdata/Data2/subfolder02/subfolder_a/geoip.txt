@@ -1,0 +1,5 @@
+{
+  "status": "fail",
+  "message": "ERROR MESSAGE",
+  "query": "IP ADDRESS USED FOR QUERY"
+}

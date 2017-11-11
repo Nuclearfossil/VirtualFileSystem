@@ -1,0 +1,42 @@
+[
+  {
+    "network": "1.0.0.0/24",
+    "geoname_id": 2077456,
+    "registered_country_geoname_id": 2077456,
+    "represented_country_geoname_id": 0,
+    "is_anonymous_proxy": 0,
+    "is_satellite_provider": 0
+  },
+  {
+    "network": "1.0.1.0/24",
+    "geoname_id": 1814991,
+    "registered_country_geoname_id": 1814991,
+    "represented_country_geoname_id": 0,
+    "is_anonymous_proxy": 0,
+    "is_satellite_provider": 0
+  },
+  {
+    "network": "1.0.2.0/23",
+    "geoname_id": 1814991,
+    "registered_country_geoname_id": 1814991,
+    "represented_country_geoname_id": 0,
+    "is_anonymous_proxy": 0,
+    "is_satellite_provider": 0
+  },
+  {
+    "network": "1.0.4.0/22",
+    "geoname_id": 2077456,
+    "registered_country_geoname_id": 2077456,
+    "represented_country_geoname_id": 0,
+    "is_anonymous_proxy": 0,
+    "is_satellite_provider": 0
+  },
+  {
+    "network": "1.0.8.0/21",
+    "geoname_id": 1814991,
+    "registered_country_geoname_id": 1814991,
+    "represented_country_geoname_id": 0,
+    "is_anonymous_proxy": 0,
+    "is_satellite_provider": 0
+  }
+]
