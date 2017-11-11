@@ -22,6 +22,13 @@ namespace VFSUnitTest
 
             string appPath = Path.Combine(TestingUtils.GetTestingBaseFolder(), "testdata");
 
+            var tempDir = Path.Combine(Path.Combine(appPath, @"Data2\temp"));
+            if (Directory.Exists(tempDir))
+            {
+                Directory.Delete(tempDir, true);
+            }
+
+
             Assert.IsTrue(nodeOne.Build(Path.Combine(appPath, @"Data\")));
             Assert.IsTrue(nodeTwo.Build(Path.Combine(appPath, @"Data2\")));
             Assert.IsTrue(nodeThree.Build(Path.Combine(appPath, @"Data.zip")));
@@ -101,6 +108,14 @@ namespace VFSUnitTest
                 Console.WriteLine("");
                 Console.WriteLine("Read {0} bytes", accumulation);
             }
+
+            // Write a file - this should go into nodeTwo
+            Byte[] info = new UTF8Encoding(true).GetBytes("This is a test of data being written into the FileSystem.");
+            Assert.IsTrue(fileSystem.Write(@"temp\sample_file.txt", info, info.Length));
+            Assert.IsTrue(fileSystem.FileExists(@"temp\sample_file.txt"));
+            Assert.IsTrue(nodeTwo.FileExists(@"temp\sample_file.txt"));
+            Assert.IsTrue(fileSystem.Delete(@"temp\sample_file.txt"));
+
         }
     }
 }

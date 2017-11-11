@@ -27,6 +27,8 @@ namespace VFS.BundleSystem
         public Dictionary<int, INode> FlatTree { get { return mNodeTree; } }
         public bool IsReady { get; internal set; }
 
+        public bool ReadOnly { get { return true; } }
+
         private ZipArchive mArchive;
         private Dictionary<int, INode> mNodeTree;
 
@@ -91,5 +93,14 @@ namespace VFS.BundleSystem
             return result;
         }
 
+        public bool Write(string filename, byte[] buffer, int length)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Delete(string filename)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

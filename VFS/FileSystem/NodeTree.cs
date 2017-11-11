@@ -11,6 +11,8 @@ namespace VFS.FileSystem
         public Dictionary<int, INode> FlatTree { get { return mNodeTree; } }
         public bool IsReady { get; internal set; }
 
+        public bool ReadOnly { get { return false; } }
+
         private Dictionary<int, INode> mNodeTree;
         private DirectoryInfo mRootPath;
 
@@ -60,7 +62,7 @@ namespace VFS.FileSystem
             return result;
         }
 
-        public bool DeleteFile(string path)
+        public bool Delete(string path)
         {
             bool result = false;
             if (FileExists(path))
@@ -82,7 +84,7 @@ namespace VFS.FileSystem
             return result;
         }
 
-        public bool WriteFile(string path, byte[] buffer, int length)
+        public bool Write(string path, byte[] buffer, int length)
         {
             // does the directory exist?
             string dir = path.Substring(0, path.LastIndexOf('\\'));

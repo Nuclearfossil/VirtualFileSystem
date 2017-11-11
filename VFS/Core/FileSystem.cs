@@ -52,7 +52,7 @@ namespace VFS.Core
                 return result;
             }
 
-            foreach(var filesystem in mFileSystems)
+            foreach (var filesystem in mFileSystems)
             {
                 if (filesystem.FileExists(path))
                 {
@@ -82,6 +82,44 @@ namespace VFS.Core
             }
 
             return output;
+        }
+
+        public bool Write(string filename, byte[] buffer, int length)
+        {
+            bool result = false;
+            if (mFileSystems.Count == 0)
+            {
+                return result;
+            }
+
+            foreach (var filesystem in mFileSystems)
+            {
+                if (!filesystem.ReadOnly)
+                {
+                    result = filesystem.Write(filename, buffer, length);
+                }
+            }
+
+            return result;
+        }
+
+        public bool Delete(string filename)
+        {
+            bool result = false;
+            if (mFileSystems.Count == 0)
+            {
+                return result;
+            }
+
+            foreach (var filesystem in mFileSystems)
+            {
+                if (!filesystem.ReadOnly)
+                {
+                    result = filesystem.Delete(filename);
+                }
+            }
+
+            return result;
         }
     }
 }

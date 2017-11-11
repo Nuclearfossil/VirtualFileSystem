@@ -79,9 +79,9 @@ namespace VFSUnitTest
             }
 
             Byte[] info = new UTF8Encoding(true).GetBytes("This is some text in the file.");
-            Assert.IsTrue(tree.WriteFile(@"temp\sample_file.txt", info, info.Length));
+            Assert.IsTrue(tree.Write(@"temp\sample_file.txt", info, info.Length));
             Assert.IsTrue(tree.FileExists(@"temp\sample_file.txt"));
-            Assert.IsTrue(tree.DeleteFile(@"temp\sample_file.txt"));
+            Assert.IsTrue(tree.Delete(@"temp\sample_file.txt"));
             Assert.IsFalse(tree.FileExists(@"temp\sample_file.txt"));
             Assert.IsFalse(File.Exists(Path.Combine(rootPath, @"temp\sample_file.txt")));
         }
