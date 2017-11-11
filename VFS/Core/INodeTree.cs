@@ -7,8 +7,10 @@ namespace VFS.Core
         bool ReadOnly { get; }
         bool DirExists(string path);
         bool FileExists(string path);
-        Stream Open(string filename);
+
         bool Write(string filename, byte[] buffer, int length);
         bool Delete(string filename);
+
+        Stream Open(string filename);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace VFS.Core
+namespace VFSUnitTest
 {
     public static class TestingUtils
     {

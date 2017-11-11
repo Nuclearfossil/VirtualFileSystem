@@ -17,7 +17,7 @@
         {
             mFilename = path;
             mNodetype = nodeType;
-    }
+        }
 
         public string Name { get { return mFilename; } }
         public Type NodeType { get { return mNodetype; } }
