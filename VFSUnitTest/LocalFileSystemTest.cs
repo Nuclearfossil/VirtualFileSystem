@@ -7,10 +7,10 @@ using VFS.FileSystem;
 namespace VFSUnitTest
 {
     [TestClass]
-    public class DiskFileSystemTest
+    public class LocalFileSystemTest
     {
         [TestMethod]
-        public void TestFileSystem()
+        public void TestLocalFileSystem()
         {
             string appPath = Path.Combine(TestingUtils.GetTestingBaseFolder(), "testdata");
 
@@ -23,7 +23,7 @@ namespace VFSUnitTest
                 Directory.Delete(tempDir, true);
             }
 
-            NodeTree tree = new NodeTree();
+            LocalFileTree tree = new LocalFileTree();
             Assert.IsTrue(tree.Build(rootPath));
 
             foreach (var item in tree.FlatTree)

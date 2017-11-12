@@ -6,19 +6,19 @@ using VFS.Core;
 
 namespace VFS.FileSystem
 {
-    public class NodeTree : INodeTree
+    public class LocalFileTree : INodeTree
     {
-        public Dictionary<int, INode> FlatTree { get { return mNodeTree; } }
+        public Dictionary<int, Node> FlatTree { get { return mNodeTree; } }
         public bool IsReady { get; internal set; }
 
         public bool ReadOnly { get { return false; } }
 
-        private Dictionary<int, INode> mNodeTree;
+        private Dictionary<int, Node> mNodeTree;
         private DirectoryInfo mRootPath;
 
-        public NodeTree()
+        public LocalFileTree()
         {
-            mNodeTree = new Dictionary<int, INode>();
+            mNodeTree = new Dictionary<int, Node>();
             IsReady = false;
         }
 
@@ -40,16 +40,16 @@ namespace VFS.FileSystem
 
         public bool DirExists(string path)
         {
-            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out INode node);
+            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out Node node);
 
-            return result && (node.NodeType == INode.Type.Directory);
+            return result && (node.NodeType == Node.INodeType.Directory);
         }
 
         public bool FileExists(string path)
         {
-            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out INode node);
+            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out Node node);
 
-            return result && (node.NodeType == INode.Type.File);
+            return result && (node.NodeType == Node.INodeType.File);
         }
 
         public Stream Open(string path)
@@ -108,7 +108,7 @@ namespace VFS.FileSystem
                 fs.Write(buffer, 0, length);
             }
 
-            mNodeTree.Add(path.GetHashCode(), new INode(path, INode.Type.File));
+            mNodeTree.Add(path.GetHashCode(), new Node(path, Node.INodeType.File));
 
             return true;
         }
@@ -118,14 +118,14 @@ namespace VFS.FileSystem
             foreach (var path in Directory.EnumerateDirectories(root))
             {
                 string truncatedPath = path.Substring(mRootPath.FullName.Length);
-                mNodeTree.Add(truncatedPath.GetHashCode(), new INode(truncatedPath, INode.Type.Directory));
+                mNodeTree.Add(truncatedPath.GetHashCode(), new Node(truncatedPath, Node.INodeType.Directory));
                 BuildRecursive(path);
             }
 
             foreach (var file in Directory.EnumerateFiles(root))
             {
                 string truncatedPath = file.Substring(mRootPath.FullName.Length);
-                mNodeTree.Add(truncatedPath.GetHashCode(), new INode(truncatedPath, INode.Type.File));
+                mNodeTree.Add(truncatedPath.GetHashCode(), new Node(truncatedPath, Node.INodeType.File));
             }
         }
     }

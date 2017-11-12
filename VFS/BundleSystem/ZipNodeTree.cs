@@ -7,14 +7,14 @@ using System.IO;
 
 namespace VFS.BundleSystem
 {
-    public class ZipNode : INode
+    public class ZipNode : Node
     {
-        public ZipNode(string path, Type nodeType) : base(path, nodeType)
+        public ZipNode(string path, INodeType nodeType) : base(path, nodeType)
         {
             mArchiveEntry = null;
         }
 
-        public ZipNode(string path, Type nodeType, ZipArchiveEntry entry) : base(path, nodeType)
+        public ZipNode(string path, INodeType nodeType, ZipArchiveEntry entry) : base(path, nodeType)
         {
             mArchiveEntry = entry;
         }
@@ -24,18 +24,18 @@ namespace VFS.BundleSystem
 
     public class ZipNodeTree : INodeTree
     {
-        public Dictionary<int, INode> FlatTree { get { return mNodeTree; } }
+        public Dictionary<int, Node> FlatTree { get { return mNodeTree; } }
         public bool IsReady { get; internal set; }
 
         public bool ReadOnly { get { return true; } }
 
         private ZipArchive mArchive;
-        private Dictionary<int, INode> mNodeTree;
+        private Dictionary<int, Node> mNodeTree;
 
 
         public ZipNodeTree()
         {
-            mNodeTree = new Dictionary<int, INode>();
+            mNodeTree = new Dictionary<int, Node>();
             IsReady = false;
         }
 
@@ -55,11 +55,11 @@ namespace VFS.BundleSystem
                     if (entry.IsDirectory)
                     {
                         normalizedName = normalizedName.TrimEnd('\\');
-                        mNodeTree.Add(normalizedName.GetHashCode(), new ZipNode(normalizedName, INode.Type.Directory));
+                        mNodeTree.Add(normalizedName.GetHashCode(), new ZipNode(normalizedName, Node.INodeType.Directory));
                     }
                     else
                     {
-                        mNodeTree.Add(normalizedName.GetHashCode(), new ZipNode(normalizedName, INode.Type.File, entry));
+                        mNodeTree.Add(normalizedName.GetHashCode(), new ZipNode(normalizedName, Node.INodeType.File, entry));
                     }
                 }
                 IsReady = true;
@@ -70,22 +70,22 @@ namespace VFS.BundleSystem
 
         public bool DirExists(string path)
         {
-            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out INode node);
+            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out Node node);
 
-            return result && node.NodeType == INode.Type.Directory;
+            return result && node.NodeType == Node.INodeType.Directory;
         }
 
         public bool FileExists(string path)
         {
-            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out INode node);
+            bool result = mNodeTree.TryGetValue(path.GetHashCode(), out Node node);
 
-            return result && node.NodeType == INode.Type.File;
+            return result && node.NodeType == Node.INodeType.File;
         }
 
         public Stream Open(string path)
         {
             Stream result = null;
-            if (mNodeTree.TryGetValue(path.GetHashCode(), out INode node))
+            if (mNodeTree.TryGetValue(path.GetHashCode(), out Node node))
             {
                 ZipNode zipNode = node as ZipNode;
                 result = zipNode.mArchiveEntry.OpenEntryStream();
@@ -93,11 +93,17 @@ namespace VFS.BundleSystem
             return result;
         }
 
+        /// <summary>
+        /// Zip files - We're treating this as a read-only store
+        /// </summary>
         public bool Write(string filename, byte[] buffer, int length)
         {
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// Zip files - We're treating this as a read-only store
+        /// </summary>
         public bool Delete(string filename)
         {
             throw new System.NotImplementedException();

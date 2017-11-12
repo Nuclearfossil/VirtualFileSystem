@@ -3,12 +3,12 @@ using System.IO;
 
 namespace VFS.Core
 {
-    public class FileSystem
+    public class Repository
     {
         private Stack<INodeTree> mFileSystems;
         private const int kInitialSystemSize = 5;
 
-        public FileSystem()
+        public Repository()
         {
             mFileSystems = new Stack<INodeTree>(kInitialSystemSize);
         }

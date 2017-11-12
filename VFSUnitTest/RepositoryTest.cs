@@ -9,15 +9,15 @@ using VFS.FileSystem;
 namespace VFSUnitTest
 {
     [TestClass]
-    public class FileSystemTest
+    public class RepositoryTest
     {
         [TestMethod]
         public void TestDirectoryHierarchy()
         {
-            var fileSystem = new FileSystem();
+            var fileSystem = new Repository();
 
-            var nodeOne = new NodeTree();
-            var nodeTwo = new NodeTree();
+            var nodeOne = new LocalFileTree();
+            var nodeTwo = new LocalFileTree();
             var nodeThree = new ZipNodeTree();
 
             string appPath = Path.Combine(TestingUtils.GetTestingBaseFolder(), "testdata");
